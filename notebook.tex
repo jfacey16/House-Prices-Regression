@@ -1,0 +1,2930 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{DATA1030 Final}\label{data1030-final}
+
+\subsubsection{Due 12/15/18 at 11:59 pm}\label{due-121518-at-1159-pm}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{quote}
+\mbox{}%
+\subparagraph{Student Name: John Facey}\label{student-name-john-facey}
+
+\mbox{}%
+\subparagraph{Student Email:
+john\_facey@brown.edu}\label{student-email-john_faceybrown.edu}
+
+\mbox{}%
+\subparagraph{Student Github Name:
+jfacey16}\label{student-github-name-jfacey16}
+
+\mbox{}%
+\subparagraph{Link to student Github Account:
+https://github.com/BrownDSI/f18-data1030-jfacey16}\label{link-to-student-github-account-httpsgithub.combrowndsif18-data1030-jfacey16}
+
+\mbox{}%
+\subparagraph{Student Kaggle Account Name:
+jfacey}\label{student-kaggle-account-name-jfacey}
+
+\mbox{}%
+\subparagraph{Link to student Kaggle Account:
+https://www.kaggle.com/jfacey}\label{link-to-student-kaggle-account-httpswww.kaggle.comjfacey}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\end{quote}
+
+    Directions: 1. This is an open computer, open book, and open web exam.
+You are encouraged to review concepts from lectures, labs and the
+textbooks for definitions and technical help. 2. However, you are
+expressly forbidden from searching for actual or similar problem
+solutions. 3. All work on this exam must be entirely your own. No
+talking or sharing with your classmates or anyone else. 4. You can use
+PyCharm, Pythontutor and any other tools you like to work on various
+problems in this exam. 5. Submission: Create a directory called
+\textbf{\texttt{final}} at the top level of your data1030 student GitHub
+folder.\\
+6. Place a notebook called \textbf{\texttt{final.ipynb}} in it that
+contains the exam tasks below. Include all necessary code. 7. Be sure to
+organize your notebook so that it is clear what each cell is doing, and
+which question it relates to or answers. 8. \textbf{Important:} your
+\textbf{\texttt{final}} directory must include all additional files that
+your notebook requires. ** The grading process automatically uses the
+file names provided, so please spell and capitalize them exactly as
+given.**
+
+\textbf{Notebooks that cannot be run from start to finish will be scored
+a zero.}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Guided Kaggle Competition}\label{guided-kaggle-competition}
+
+For your final exam in DATA 1030, you will create a submission for the
+
+\href{https://www.kaggle.com/erikbruin/house-prices-lasso-xgboost-and-a-detailed-eda}{House
+Prices: Advanced Regression Techniques description} Kaggle competition.
+
+In order to speed your work, and to give you an example of a detailed
+analysis of this dataset that leads to a reasonable model, your work
+will be guided by Erik Bruin's kernel analysis and submission described
+in this Kaggle R Kernel
+\href{https://www.kaggle.com/erikbruin/house-prices-lasso-xgboost-and-a-detailed-eda}{House
+prices: Lasso, XGBoost, and a detailed EDA}.
+
+Below is a linked table of contents to a copy of this kernel.
+
+Your task for this exam will be to use Python, sklearn and the plloting
+libraries of your choice, to recreate the critical aspects of his
+analysis (including ETL and EDA) in order for you to develop your own
+submission. While it is possible to work online using the Kaggle
+platform, it will probably be more efficient for you to work locally by
+modifying this notebook.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#executive-summary}{1~Executive
+  Summary}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#introduction}{2~Introduction}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#loading-and-exploring-data}{3~Loading
+  and Exploring Data}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#loading-libraries-required-and-reading-the-data-into-r}{3.1~Loading
+    libraries required and reading the data into R}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#data-size-and-structure}{3.2~Data
+    size and structure}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#exploring-some-of-the-most-important-variables}{4~Exploring
+  some of the most important variables}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#the-response-variable-saleprice}{4.1~The
+    response variable; SalePrice}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#the-most-important-numeric-predictors}{4.2~The
+    most important numeric predictors}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#correlations-with-saleprice}{4.2.1~Correlations
+      with SalePrice}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#overall-quality}{4.2.2~Overall
+      Quality}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#above-grade-ground-living-area-square-feet}{4.2.3~Above
+      Grade (Ground) Living Area (square feet)}
+    \end{itemize}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#missing-data-label-encoding-and-factorizing-variables}{5~Missing
+  data, label encoding, and factorizing variables}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#completeness-of-the-data}{5.1~Completeness
+    of the data}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#imputing-missing-data}{5.2~Imputing
+    missing data}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#label-encodingfactorizing-the-remaining-character-variables}{5.3~Label
+    encoding/factorizing the remaining character variables}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#changing-some-numeric-variables-into-factors}{5.4~Changing
+    some numeric variables into factors}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#year-and-month-sold}{5.4.1~Year
+      and Month Sold}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#mssubclass}{5.4.2~MSSubClass}
+    \end{itemize}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#visualization-of-important-variables}{6~Visualization
+  of important variables}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#correlations-again}{6.1~Correlations
+    again}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#finding-variable-importance-with-a-quick-random-forest}{6.2~Finding
+    variable importance with a quick Random Forest}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#above-ground-living-area-and-other-surface-related-variables-in-square-feet}{6.2.1~Above
+      Ground Living Area, and other surface related variables (in square
+      feet)}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#the-most-important-categorical-variable-neighborhood}{6.2.2~The
+      most important categorical variable; Neighborhood}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#overall-quality-and-other-quality-variables}{6.2.3~Overall
+      Quality, and other Quality variables}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#the-second-most-important-categorical-variable-mssubclass}{6.2.4~The
+      second most important categorical variable; MSSubClass}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#garage-variables-1}{6.2.5~Garage
+      variables}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#basement-variables-1}{6.2.6~Basement
+      variables}
+    \end{itemize}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#feature-engineering}{7~Feature
+  engineering}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#total-number-of-bathrooms}{7.1~Total
+    number of Bathrooms}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#adding-house-age-remodeled-yesno-and-isnew-variables}{7.2~Adding
+    'House Age', 'Remodeled (Yes/No)', and IsNew variables}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#binning-neighborhood}{7.3~Binning
+    Neighborhood}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#total-square-feet}{7.4~Total
+    Square Feet}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#consolidating-porch-variables}{7.5~Consolidating
+    Porch variables}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#preparing-data-for-modeling}{8~Preparing
+  data for modeling}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#dropping-highly-correlated-variables}{8.1~Dropping
+    highly correlated variables}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#removing-outliers}{8.2~Removing
+    outliers}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#preprocessing-predictor-variables}{8.3~PreProcessing
+    predictor variables}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#skewness-and-normalizing-of-the-numeric-predictors}{8.3.1~Skewness
+      and normalizing of the numeric predictors}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#one-hot-encoding-the-categorical-variables}{8.3.2~One
+      hot encoding the categorical variables}
+    \item
+      \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#removing-levels-with-few-or-no-observations-in-train-or-test}{8.3.3~Removing
+      levels with few or no observations in train or test}
+    \end{itemize}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#dealing-with-skewness-of-response-variable}{8.4~Dealing
+    with skewness of response variable}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#composing-train-and-test-sets}{8.5~Composing
+    train and test sets}
+  \end{itemize}
+\item
+  \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#modeling}{9~Modeling}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#lasso-regression-model}{9.1~Lasso
+    regression model}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#xgboost-model}{9.2~XGBoost
+    model}
+  \item
+    \href{https://www.kaggleusercontent.com/kf/8446496/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..yx1LRhBAm-wm19cxAYWP5Q.fN_74apmhjRiO6ZmO2PS4jLULz0TKwaEC4mhkrNBIaiS3MlsygfXo7Zd1ZT03iaMmh78YIANubqYCz5yI_5c6Xclq1FYaR_aUb8ND5btElxEYg0tb7_NkDHg-SHHVSsTlEhyET7eMeVoxj3LTS9-OtzfyNJh1DFk_Er5XfTEW9VbyDQh1FQ9-Ry7nBKZ6D1u.fCGn9rRQ12TP2wDfnPBJuw/__results__.html\#averaging-predictions}{9.3~Averaging
+    predictions}
+  \end{itemize}
+\end{itemize}
+
+    \subsection{Below are the required sections for your
+notebook.}\label{below-are-the-required-sections-for-your-notebook.}
+
+\begin{itemize}
+\item
+  Include an appropriate narratives where appropriate, also try and
+  fully develop most of the techniques he employed to visualize, analyze
+  and improve the data.
+\item
+  Along the way be sure to do appropriate ETL on the final model
+  variables model, but in order to save time, you can skip data cleaning
+  and other steps on irrelevant variables.
+\item
+  For Section 9, you should use sklearn gridsearch to try and improve
+  his final model.
+\item
+  Extra Credit {[}10{]}: Review the sklearn
+  \href{https://scikit-learn.org/stable/modules/preprocessing.html\#preprocessing}{Preprocessing
+  Material} and implement your feature transformations using appropriate
+  Transformer functions, e.g. the preprocessing module further provides
+  a utility class StandardScaler that implements the Transformer API to
+  compute the mean and standard deviation on a training set so as to be
+  able to later reapply the same transformation on the testing set.
+\end{itemize}
+
+\subsubsection{Final Hand-in steps:}\label{final-hand-in-steps}
+
+\paragraph{Kaggle competition entry}\label{kaggle-competition-entry}
+
+\begin{itemize}
+\tightlist
+\item
+  Design your notebook so that when run top to bottom it will generate a
+  copy of your final \texttt{final\_submission.csv}. Include a copy of
+  this file in the \textbf{\texttt{final}} directory that you turn in.
+\item
+  Save a copy of the final copy of your notebook as a regular
+  \texttt{.ipynb} and as a \texttt{.pdf}
+\item
+  Remeber to also participate in the competition and to submit your
+  final submission.
+\end{itemize}
+
+\subsubsection{Additional Resources:}\label{additional-resources}
+
+The Kaggle machine learning tutorial is quite good, and also uses the
+Ames Housing dataset in many of its kernels. For example,
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.kaggle.com/dansbecker/xgboost
+\item
+  https://www.kaggle.com/dansbecker/submitting-from-a-kernel
+\end{itemize}
+
+You are also encouraged to look at, as needed, at the other kernels
+related to this competition (even the ones in Python)
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \texttt{\#\#\#\ BEGIN\ SOLUTION}
+
+    \subsection{1 Executive Summary {[}10{]}}\label{executive-summary-10}
+
+    \subsection{2 Introduction}\label{introduction}
+
+    \subsection{3 Loading and Exploring Data
+{[}10{]}}\label{loading-and-exploring-data-10}
+
+    \subsubsection{3.1 Loading libraries required and reading the data into
+Python}\label{loading-libraries-required-and-reading-the-data-into-python}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{py}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{c+c1}{\PYZsh{}import sklearn}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{train\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all/train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all/test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{3.2 Data size and
+structure}\label{data-size-and-structure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    Id  MSSubClass MSZoning  LotFrontage  LotArea Street Alley LotShape  \textbackslash{}
+        0   1          60       RL         65.0     8450   Pave   NaN      Reg   
+        1   2          20       RL         80.0     9600   Pave   NaN      Reg   
+        2   3          60       RL         68.0    11250   Pave   NaN      IR1   
+        3   4          70       RL         60.0     9550   Pave   NaN      IR1   
+        4   5          60       RL         84.0    14260   Pave   NaN      IR1   
+        
+          LandContour Utilities    {\ldots}     PoolArea PoolQC Fence MiscFeature MiscVal  \textbackslash{}
+        0         Lvl    AllPub    {\ldots}            0    NaN   NaN         NaN       0   
+        1         Lvl    AllPub    {\ldots}            0    NaN   NaN         NaN       0   
+        2         Lvl    AllPub    {\ldots}            0    NaN   NaN         NaN       0   
+        3         Lvl    AllPub    {\ldots}            0    NaN   NaN         NaN       0   
+        4         Lvl    AllPub    {\ldots}            0    NaN   NaN         NaN       0   
+        
+          MoSold YrSold  SaleType  SaleCondition  SalePrice  
+        0      2   2008        WD         Normal     208500  
+        1      5   2007        WD         Normal     181500  
+        2      9   2008        WD         Normal     223500  
+        3      2   2006        WD        Abnorml     140000  
+        4     12   2008        WD         Normal     250000  
+        
+        [5 rows x 81 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1460 entries, 0 to 1459
+Data columns (total 81 columns):
+Id               1460 non-null int64
+MSSubClass       1460 non-null int64
+MSZoning         1460 non-null object
+LotFrontage      1201 non-null float64
+LotArea          1460 non-null int64
+Street           1460 non-null object
+Alley            91 non-null object
+LotShape         1460 non-null object
+LandContour      1460 non-null object
+Utilities        1460 non-null object
+LotConfig        1460 non-null object
+LandSlope        1460 non-null object
+Neighborhood     1460 non-null object
+Condition1       1460 non-null object
+Condition2       1460 non-null object
+BldgType         1460 non-null object
+HouseStyle       1460 non-null object
+OverallQual      1460 non-null int64
+OverallCond      1460 non-null int64
+YearBuilt        1460 non-null int64
+YearRemodAdd     1460 non-null int64
+RoofStyle        1460 non-null object
+RoofMatl         1460 non-null object
+Exterior1st      1460 non-null object
+Exterior2nd      1460 non-null object
+MasVnrType       1452 non-null object
+MasVnrArea       1452 non-null float64
+ExterQual        1460 non-null object
+ExterCond        1460 non-null object
+Foundation       1460 non-null object
+BsmtQual         1423 non-null object
+BsmtCond         1423 non-null object
+BsmtExposure     1422 non-null object
+BsmtFinType1     1423 non-null object
+BsmtFinSF1       1460 non-null int64
+BsmtFinType2     1422 non-null object
+BsmtFinSF2       1460 non-null int64
+BsmtUnfSF        1460 non-null int64
+TotalBsmtSF      1460 non-null int64
+Heating          1460 non-null object
+HeatingQC        1460 non-null object
+CentralAir       1460 non-null object
+Electrical       1459 non-null object
+1stFlrSF         1460 non-null int64
+2ndFlrSF         1460 non-null int64
+LowQualFinSF     1460 non-null int64
+GrLivArea        1460 non-null int64
+BsmtFullBath     1460 non-null int64
+BsmtHalfBath     1460 non-null int64
+FullBath         1460 non-null int64
+HalfBath         1460 non-null int64
+BedroomAbvGr     1460 non-null int64
+KitchenAbvGr     1460 non-null int64
+KitchenQual      1460 non-null object
+TotRmsAbvGrd     1460 non-null int64
+Functional       1460 non-null object
+Fireplaces       1460 non-null int64
+FireplaceQu      770 non-null object
+GarageType       1379 non-null object
+GarageYrBlt      1379 non-null float64
+GarageFinish     1379 non-null object
+GarageCars       1460 non-null int64
+GarageArea       1460 non-null int64
+GarageQual       1379 non-null object
+GarageCond       1379 non-null object
+PavedDrive       1460 non-null object
+WoodDeckSF       1460 non-null int64
+OpenPorchSF      1460 non-null int64
+EnclosedPorch    1460 non-null int64
+3SsnPorch        1460 non-null int64
+ScreenPorch      1460 non-null int64
+PoolArea         1460 non-null int64
+PoolQC           7 non-null object
+Fence            281 non-null object
+MiscFeature      54 non-null object
+MiscVal          1460 non-null int64
+MoSold           1460 non-null int64
+YrSold           1460 non-null int64
+SaleType         1460 non-null object
+SaleCondition    1460 non-null object
+SalePrice        1460 non-null int64
+dtypes: float64(3), int64(35), object(43)
+memory usage: 924.0+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}      Id  MSSubClass MSZoning  LotFrontage  LotArea Street Alley LotShape  \textbackslash{}
+        0  1461          20       RH         80.0    11622   Pave   NaN      Reg   
+        1  1462          20       RL         81.0    14267   Pave   NaN      IR1   
+        2  1463          60       RL         74.0    13830   Pave   NaN      IR1   
+        3  1464          60       RL         78.0     9978   Pave   NaN      IR1   
+        4  1465         120       RL         43.0     5005   Pave   NaN      IR1   
+        
+          LandContour Utilities      {\ldots}       ScreenPorch PoolArea PoolQC  Fence  \textbackslash{}
+        0         Lvl    AllPub      {\ldots}               120        0    NaN  MnPrv   
+        1         Lvl    AllPub      {\ldots}                 0        0    NaN    NaN   
+        2         Lvl    AllPub      {\ldots}                 0        0    NaN  MnPrv   
+        3         Lvl    AllPub      {\ldots}                 0        0    NaN    NaN   
+        4         HLS    AllPub      {\ldots}               144        0    NaN    NaN   
+        
+          MiscFeature MiscVal MoSold  YrSold  SaleType  SaleCondition  
+        0         NaN       0      6    2010        WD         Normal  
+        1        Gar2   12500      6    2010        WD         Normal  
+        2         NaN       0      3    2010        WD         Normal  
+        3         NaN       0      6    2010        WD         Normal  
+        4         NaN       0      1    2010        WD         Normal  
+        
+        [5 rows x 80 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1459 entries, 0 to 1458
+Data columns (total 80 columns):
+Id               1459 non-null int64
+MSSubClass       1459 non-null int64
+MSZoning         1455 non-null object
+LotFrontage      1232 non-null float64
+LotArea          1459 non-null int64
+Street           1459 non-null object
+Alley            107 non-null object
+LotShape         1459 non-null object
+LandContour      1459 non-null object
+Utilities        1457 non-null object
+LotConfig        1459 non-null object
+LandSlope        1459 non-null object
+Neighborhood     1459 non-null object
+Condition1       1459 non-null object
+Condition2       1459 non-null object
+BldgType         1459 non-null object
+HouseStyle       1459 non-null object
+OverallQual      1459 non-null int64
+OverallCond      1459 non-null int64
+YearBuilt        1459 non-null int64
+YearRemodAdd     1459 non-null int64
+RoofStyle        1459 non-null object
+RoofMatl         1459 non-null object
+Exterior1st      1458 non-null object
+Exterior2nd      1458 non-null object
+MasVnrType       1443 non-null object
+MasVnrArea       1444 non-null float64
+ExterQual        1459 non-null object
+ExterCond        1459 non-null object
+Foundation       1459 non-null object
+BsmtQual         1415 non-null object
+BsmtCond         1414 non-null object
+BsmtExposure     1415 non-null object
+BsmtFinType1     1417 non-null object
+BsmtFinSF1       1458 non-null float64
+BsmtFinType2     1417 non-null object
+BsmtFinSF2       1458 non-null float64
+BsmtUnfSF        1458 non-null float64
+TotalBsmtSF      1458 non-null float64
+Heating          1459 non-null object
+HeatingQC        1459 non-null object
+CentralAir       1459 non-null object
+Electrical       1459 non-null object
+1stFlrSF         1459 non-null int64
+2ndFlrSF         1459 non-null int64
+LowQualFinSF     1459 non-null int64
+GrLivArea        1459 non-null int64
+BsmtFullBath     1457 non-null float64
+BsmtHalfBath     1457 non-null float64
+FullBath         1459 non-null int64
+HalfBath         1459 non-null int64
+BedroomAbvGr     1459 non-null int64
+KitchenAbvGr     1459 non-null int64
+KitchenQual      1458 non-null object
+TotRmsAbvGrd     1459 non-null int64
+Functional       1457 non-null object
+Fireplaces       1459 non-null int64
+FireplaceQu      729 non-null object
+GarageType       1383 non-null object
+GarageYrBlt      1381 non-null float64
+GarageFinish     1381 non-null object
+GarageCars       1458 non-null float64
+GarageArea       1458 non-null float64
+GarageQual       1381 non-null object
+GarageCond       1381 non-null object
+PavedDrive       1459 non-null object
+WoodDeckSF       1459 non-null int64
+OpenPorchSF      1459 non-null int64
+EnclosedPorch    1459 non-null int64
+3SsnPorch        1459 non-null int64
+ScreenPorch      1459 non-null int64
+PoolArea         1459 non-null int64
+PoolQC           3 non-null object
+Fence            290 non-null object
+MiscFeature      51 non-null object
+MiscVal          1459 non-null int64
+MoSold           1459 non-null int64
+YrSold           1459 non-null int64
+SaleType         1458 non-null object
+SaleCondition    1459 non-null object
+dtypes: float64(11), int64(26), object(43)
+memory usage: 912.0+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{test\PYZus{}labels} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{Id}
+        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{all\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}df}\PY{p}{,} \PY{n}{test\PYZus{}df}\PY{p}{]}\PY{p}{,} \PY{n}{sort}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}       MSSubClass MSZoning  LotFrontage  LotArea Street Alley LotShape  \textbackslash{}
+        2914         160       RM         21.0     1936   Pave   NaN      Reg   
+        2915         160       RM         21.0     1894   Pave   NaN      Reg   
+        2916          20       RL        160.0    20000   Pave   NaN      Reg   
+        2917          85       RL         62.0    10441   Pave   NaN      Reg   
+        2918          60       RL         74.0     9627   Pave   NaN      Reg   
+        
+             LandContour Utilities LotConfig    {\ldots}     PoolArea PoolQC  Fence  \textbackslash{}
+        2914         Lvl    AllPub    Inside    {\ldots}            0    NaN    NaN   
+        2915         Lvl    AllPub    Inside    {\ldots}            0    NaN    NaN   
+        2916         Lvl    AllPub    Inside    {\ldots}            0    NaN    NaN   
+        2917         Lvl    AllPub    Inside    {\ldots}            0    NaN  MnPrv   
+        2918         Lvl    AllPub    Inside    {\ldots}            0    NaN    NaN   
+        
+             MiscFeature MiscVal MoSold  YrSold  SaleType  SaleCondition  SalePrice  
+        2914         NaN       0      6    2006        WD         Normal        NaN  
+        2915         NaN       0      4    2006        WD        Abnorml        NaN  
+        2916         NaN       0      9    2006        WD        Abnorml        NaN  
+        2917        Shed     700      7    2006        WD         Normal        NaN  
+        2918         NaN       0     11    2006        WD         Normal        NaN  
+        
+        [5 rows x 80 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (2919, 80)
+\end{Verbatim}
+            
+    \subsection{4 Exploring some of the most important variables
+{[}10{]}}\label{exploring-some-of-the-most-important-variables-10}
+
+\subsubsection{4.1 The response variable;
+SalePrice}\label{the-response-variable-saleprice}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Histogram}\PY{p}{(}
+             \PY{n}{x}\PY{o}{=}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{,}
+             \PY{n}{xbins}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                 \PY{n}{end}\PY{o}{=}\PY{l+m+mi}{800000}\PY{p}{,}
+                 \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Sale Prices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{xaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{)}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{)}
+         \PY{p}{)}
+         
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} count      1460.000000
+         mean     180921.195890
+         std       79442.502883
+         min       34900.000000
+         25\%      129975.000000
+         50\%      163000.000000
+         75\%      214000.000000
+         max      755000.000000
+         Name: SalePrice, dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{4.2 The most important numeric
+predictors}\label{the-most-important-numeric-predictors}
+
+    \paragraph{4.2.1 Correlations with
+SalePrice}\label{correlations-with-saleprice}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{numeric\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{number}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{numeric\PYZus{}cols}\PY{o}{.}\PY{n}{size}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ numeric columns.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 37 numeric columns.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{non\PYZus{}numeric\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{exclude}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{number}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{non\PYZus{}numeric\PYZus{}cols}\PY{o}{.}\PY{n}{size}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ non\PYZhy{}numeric columns.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 43 non-numeric columns.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{all\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{n}{numeric\PYZus{}cols}\PY{p}{]}
+         \PY{n}{all\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} (2919, 37)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{cor\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cor\PYZus{}sorted} \PY{o}{=} \PY{n}{cor\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{cor\PYZus{}high\PYZus{}names} \PY{o}{=} \PY{n}{cor\PYZus{}sorted}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{cor\PYZus{}sorted} \PY{o}{\PYZgt{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{top\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}numeric\PYZus{}vars}\PY{p}{[}\PY{n}{cor\PYZus{}high\PYZus{}names}\PY{p}{]}
+         \PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Heatmap}\PY{p}{(}\PY{n}{z}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{x}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+                            \PY{n}{y}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{]}
+         \PY{n}{layout}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Correlations With SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{autorange}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reversed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{automargin}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{p}{)}
+         
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \paragraph{4.2.2 Overall Quality}\label{overall-quality}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Box}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{OverallQual}\PY{p}{,}
+                        \PY{n}{y}\PY{o}{=}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}
+         \PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price by Quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{xaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Overall Quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sale Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{)}
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \paragraph{4.2.3 Above Grade (Ground) Living Area (square
+feet)}\label{above-grade-ground-living-area-square-feet}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{slope}\PY{p}{,} \PY{n}{intercept}\PY{p}{,} \PY{n}{r\PYZus{}value}\PY{p}{,} \PY{n}{p\PYZus{}value}\PY{p}{,} \PY{n}{std\PYZus{}err} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{linregress}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{GrLivArea}\PY{p}{,}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{)}
+         \PY{n}{fit} \PY{o}{=} \PY{n}{slope}\PY{o}{*}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{GrLivArea}\PY{o}{+}\PY{n}{intercept}
+         
+         \PY{n}{trace0} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+             \PY{n}{x} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{GrLivArea}\PY{p}{,}
+             \PY{n}{y} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{,}
+             \PY{n}{mode} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{markers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{p}{)}
+         
+         \PY{n}{trace1} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+             \PY{n}{x} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{GrLivArea}\PY{p}{,}
+             \PY{n}{y} \PY{o}{=} \PY{n}{fit}\PY{p}{,}
+             \PY{n}{mode} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{trace0}\PY{p}{,}\PY{n}{trace1}\PY{p}{]}
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price by Ground Living Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ground Living Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sale Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{)}
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \subsection{5 Missing data, label encoding, and factorizing variables
+{[}5{]}}\label{missing-data-label-encoding-and-factorizing-variables-5}
+
+    \subsubsection{5.1 Completeness of the
+data}\label{completeness-of-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{na\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{n}{na\PYZus{}cols}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} PoolQC          2909
+         MiscFeature     2814
+         Alley           2721
+         Fence           2348
+         SalePrice       1459
+         FireplaceQu     1420
+         LotFrontage      486
+         GarageYrBlt      159
+         GarageFinish     159
+         GarageQual       159
+         GarageCond       159
+         GarageType       157
+         BsmtCond          82
+         BsmtExposure      82
+         BsmtQual          81
+         BsmtFinType2      80
+         BsmtFinType1      79
+         MasVnrType        24
+         MasVnrArea        23
+         MSZoning           4
+         BsmtFullBath       2
+         BsmtHalfBath       2
+         Functional         2
+         Utilities          2
+         BsmtFinSF2         1
+         BsmtUnfSF          1
+         BsmtFinSF1         1
+         TotalBsmtSF        1
+         SaleType           1
+         KitchenQual        1
+         Exterior2nd        1
+         Exterior1st        1
+         GarageCars         1
+         GarageArea         1
+         Electrical         1
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{na\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ columns with missing values.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 35 columns with missing values.
+
+    \end{Verbatim}
+
+    \subsubsection{5.2 Imputing missing data}\label{imputing-missing-data}
+
+    \paragraph{5.2.1 Pool variables}\label{pool-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{qualities} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Po}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}    MSSubClass MSZoning  LotFrontage  LotArea Street Alley LotShape  \textbackslash{}
+         0          60       RL         65.0     8450   Pave   NaN      Reg   
+         1          20       RL         80.0     9600   Pave   NaN      Reg   
+         2          60       RL         68.0    11250   Pave   NaN      IR1   
+         3          70       RL         60.0     9550   Pave   NaN      IR1   
+         4          60       RL         84.0    14260   Pave   NaN      IR1   
+         
+           LandContour Utilities LotConfig    {\ldots}     PoolArea PoolQC Fence  \textbackslash{}
+         0         Lvl    AllPub    Inside    {\ldots}            0      0   NaN   
+         1         Lvl    AllPub       FR2    {\ldots}            0      0   NaN   
+         2         Lvl    AllPub    Inside    {\ldots}            0      0   NaN   
+         3         Lvl    AllPub    Corner    {\ldots}            0      0   NaN   
+         4         Lvl    AllPub       FR2    {\ldots}            0      0   NaN   
+         
+           MiscFeature MiscVal MoSold  YrSold  SaleType  SaleCondition  SalePrice  
+         0         NaN       0      2    2008        WD         Normal   208500.0  
+         1         NaN       0      5    2007        WD         Normal   181500.0  
+         2         NaN       0      9    2008        WD         Normal   223500.0  
+         3         NaN       0      2    2006        WD        Abnorml   140000.0  
+         4         NaN       0     12    2008        WD         Normal   250000.0  
+         
+         [5 rows x 80 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolArea} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoolArea}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoolQC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OverallQual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}       PoolArea  PoolQC  OverallQual
+         2420       368       0            4
+         2503       444       0            6
+         2599       561       0            3
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2420}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2503}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PoolQC}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2599}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \paragraph{5.2.2 Miscellaneous Feature}\label{miscellaneous-feature}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MiscFeature}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} MiscFeature
+         Gar2       5
+         None    2814
+         Othr       4
+         Shed      95
+         TenC       1
+         Name: MiscFeature, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.3 Alley}\label{alley}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Alley}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Alley
+         Grvl     120
+         None    2721
+         Pave      78
+         Name: Alley, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.4 Fence}\label{fence}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Fence}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} Fence
+         GdPrv     118
+         GdWo      112
+         MnPrv     329
+         MnWw       12
+         None     2348
+         Name: Fence, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.5 Fireplace variables}\label{fireplace-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} FireplaceQu
+         0    1420
+         1      46
+         2      74
+         3     592
+         4     744
+         5      43
+         Name: FireplaceQu, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FireplaceQu}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 2919
+\end{Verbatim}
+            
+    \paragraph{5.2.6 Lot variables}\label{lot-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotFrontage} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotFrontage}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotFrontage}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{lot\PYZus{}shape\PYZus{}qualities} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IR3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IR1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotShape} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotShape}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{lot\PYZus{}shape\PYZus{}qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotShape}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotShape}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} LotShape
+         0      16
+         1      76
+         2     968
+         3    1859
+         Name: LotShape, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotConfig} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotConfig}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotConfig}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LotConfig}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} LotConfig
+         Corner      511
+         CulDSac     176
+         FR2          85
+         FR3          14
+         Inside     2133
+         Name: LotConfig, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.7 Garage variables}\label{garage-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageYrBlt} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageYrBlt}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YearBuilt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageCars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageArea}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageCond}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageQual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageFinish}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}       GarageCars  GarageArea GarageType GarageCond GarageQual GarageFinish
+         2126         1.0       360.0     Detchd        NaN        NaN          NaN
+         2576         NaN         NaN     Detchd        NaN        NaN          NaN
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2126}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageCond}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2126}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageQual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2126}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageFinish}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCars}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2576}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageArea}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2576}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2576}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{NaN}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageType}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} GarageType
+         2Types       23
+         Attchd     1723
+         Basment      36
+         BuiltIn     186
+         CarPort      15
+         Detchd      778
+         None        158
+         Name: GarageType, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{finish\PYZus{}cats} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RFn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{finish\PYZus{}cats}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageFinish}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} GarageFinish
+         0     158
+         1    1231
+         2     811
+         3     719
+         Name: GarageFinish, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageQual}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} GarageQual
+         0     158
+         1       5
+         2     124
+         3    2605
+         4      24
+         5       3
+         Name: GarageQual, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GarageCond}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} GarageCond
+         0     158
+         1      14
+         2      74
+         3    2655
+         4      15
+         5       3
+         Name: GarageCond, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.8 Basement Variables}\label{basement-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{|}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtQual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtCond}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtExposure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtFinType1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtFinType2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}                                                                                                                    
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}      BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinType2
+         332        Gd       TA           No          GLQ          NaN
+         948        Gd       TA          NaN          Unf          Unf
+         1487       Gd       TA          NaN          Unf          Unf
+         2040       Gd      NaN           Mn          GLQ          Rec
+         2185       TA      NaN           No          BLQ          Unf
+         2217      NaN       Fa           No          Unf          Unf
+         2218      NaN       TA           No          Unf          Unf
+         2348       Gd       TA          NaN          Unf          Unf
+         2524       TA      NaN           Av          ALQ          Unf
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{332}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtFinType2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{949}\PY{p}{,} \PY{l+m+mi}{1488}\PY{p}{,} \PY{l+m+mi}{2349}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtExposure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2041}\PY{p}{,} \PY{l+m+mi}{2186}\PY{p}{,} \PY{l+m+mi}{2525}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtCond}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2218}\PY{p}{,} \PY{l+m+mi}{2219}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtQual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtQual}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} BsmtQual
+         0      80
+         2      87
+         3    1283
+         4    1211
+         5     258
+         Name: BsmtQual, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtCond}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} BsmtCond
+         0      82
+         1       5
+         2     104
+         3    2603
+         4     125
+         Name: BsmtCond, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{exp} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Av}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{exp}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtExposure}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} BsmtExposure
+         0      82
+         1    1902
+         2     239
+         3     420
+         4     276
+         Name: BsmtExposure, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{fin\PYZus{}type} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LwQ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLQ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALQ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GLQ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{fin\PYZus{}type}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType1}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} BsmtFinType1
+         0     79
+         1    851
+         2    154
+         3    288
+         4    269
+         5    429
+         6    849
+         Name: BsmtFinType1, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{fin\PYZus{}type}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinType2}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} BsmtFinType2
+         0      79
+         1    2493
+         2      87
+         3     106
+         4      68
+         5      52
+         6      34
+         Name: BsmtFinType2, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFullBath} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFullBath}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtHalfBath} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtHalfBath}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinSF1} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinSF1}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinSF2} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFinSF2}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtUnfSF} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtUnfSF}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{TotalBsmtSF} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{TotalBsmtSF}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{5.2.9 Masonry variables}\label{masonry-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrArea}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MasVnrArea}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MasVnrType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}       MasVnrArea MasVnrType
+         2610       198.0        NaN
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{l+m+mi}{2610}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MasVnrType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{mas\PYZus{}types} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BrkCmn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BrkFace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{mas\PYZus{}types}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MasVnrType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrType}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} MasVnrType
+         0    1790
+         1     880
+         2     249
+         Name: MasVnrType, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrArea} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MasVnrArea}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{5.2.10 MS Zoning}\label{ms-zoning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSZoning}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} MSZoning
+         C (all)      25
+         FV          139
+         RH           26
+         RL         2269
+         RM          460
+         Name: MSZoning, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.11 Kitchen variables}\label{kitchen-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{KitchenQual}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} KitchenQual
+         2      70
+         3    1493
+         4    1151
+         5     205
+         Name: KitchenQual, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.12 Utilities}\label{utilities}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Utilities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{5.2.13 Home functionality}\label{home-functionality}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{func} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maj2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maj1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Typ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{func}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Functional}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} Functional
+         1       2
+         2       9
+         3      19
+         4      35
+         5      70
+         6      65
+         7    2719
+         Name: Functional, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.14 Exterior variables}\label{exterior-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior1st}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} Exterior1st
+         AsbShng      44
+         AsphShn       2
+         BrkComm       6
+         BrkFace      87
+         CBlock        2
+         CemntBd     126
+         HdBoard     442
+         ImStucc       1
+         MetalSd     450
+         Plywood     221
+         Stone         2
+         Stucco       43
+         VinylSd    1026
+         Wd Sdng     411
+         WdShing      56
+         Name: Exterior1st, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Exterior2nd}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} Exterior2nd
+         AsbShng      38
+         AsphShn       4
+         Brk Cmn      22
+         BrkFace      47
+         CBlock        3
+         CmentBd     126
+         HdBoard     406
+         ImStucc      15
+         MetalSd     447
+         Other         1
+         Plywood     270
+         Stone         6
+         Stucco       47
+         VinylSd    1015
+         Wd Sdng     391
+         Wd Shng      81
+         Name: Exterior2nd, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterQual} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterQual}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterQual}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterQual}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} ExterQual
+         2      35
+         3    1798
+         4     979
+         5     107
+         Name: ExterQual, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterCond} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterCond}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterCond}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ExterCond}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} ExterCond
+         1       3
+         2      67
+         3    2538
+         4     299
+         5      12
+         Name: ExterCond, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.15 Electrical system}\label{electrical-system}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Electrical}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} Electrical
+         FuseA     188
+         FuseF      50
+         FuseP       8
+         Mix         1
+         SBrkr    2672
+         Name: Electrical, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.2.16 Sale Type and
+Condition}\label{sale-type-and-condition}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleType}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} SaleType
+         COD        87
+         CWD        12
+         Con         5
+         ConLD      26
+         ConLI       9
+         ConLw       8
+         New       239
+         Oth         7
+         WD       2526
+         Name: SaleType, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleCondition} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleCondition}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleCondition}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SaleCondition}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} SaleCondition
+         Abnorml     190
+         AdjLand      12
+         Alloca       24
+         Family       46
+         Normal     2402
+         Partial     245
+         Name: SaleCondition, dtype: int64
+\end{Verbatim}
+            
+    \subsection{5.3 Label encoding/factorizing the remaining character
+variables
+{[}5{]}}\label{label-encodingfactorizing-the-remaining-character-variables-5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2919 entries, 0 to 2918
+Data columns (total 79 columns):
+MSSubClass       2919 non-null int64
+MSZoning         2919 non-null category
+LotFrontage      2919 non-null float64
+LotArea          2919 non-null int64
+Street           2919 non-null object
+Alley            2919 non-null category
+LotShape         2919 non-null int8
+LandContour      2919 non-null object
+LotConfig        2919 non-null category
+LandSlope        2919 non-null object
+Neighborhood     2919 non-null object
+Condition1       2919 non-null object
+Condition2       2919 non-null object
+BldgType         2919 non-null object
+HouseStyle       2919 non-null object
+OverallQual      2919 non-null int64
+OverallCond      2919 non-null int64
+YearBuilt        2919 non-null int64
+YearRemodAdd     2919 non-null int64
+RoofStyle        2919 non-null object
+RoofMatl         2919 non-null object
+Exterior1st      2919 non-null category
+Exterior2nd      2919 non-null category
+MasVnrType       2919 non-null int8
+MasVnrArea       2919 non-null float64
+ExterQual        2919 non-null int8
+ExterCond        2919 non-null int8
+Foundation       2919 non-null object
+BsmtQual         2919 non-null int8
+BsmtCond         2919 non-null int8
+BsmtExposure     2919 non-null int8
+BsmtFinType1     2919 non-null int8
+BsmtFinSF1       2919 non-null float64
+BsmtFinType2     2919 non-null int8
+BsmtFinSF2       2919 non-null float64
+BsmtUnfSF        2919 non-null float64
+TotalBsmtSF      2919 non-null float64
+Heating          2919 non-null object
+HeatingQC        2919 non-null object
+CentralAir       2919 non-null object
+Electrical       2919 non-null category
+1stFlrSF         2919 non-null int64
+2ndFlrSF         2919 non-null int64
+LowQualFinSF     2919 non-null int64
+GrLivArea        2919 non-null int64
+BsmtFullBath     2919 non-null float64
+BsmtHalfBath     2919 non-null float64
+FullBath         2919 non-null int64
+HalfBath         2919 non-null int64
+BedroomAbvGr     2919 non-null int64
+KitchenAbvGr     2919 non-null int64
+KitchenQual      2919 non-null int8
+TotRmsAbvGrd     2919 non-null int64
+Functional       2919 non-null int8
+Fireplaces       2919 non-null int64
+FireplaceQu      2919 non-null int8
+GarageType       2919 non-null category
+GarageYrBlt      2919 non-null float64
+GarageFinish     2919 non-null int8
+GarageCars       2919 non-null float64
+GarageArea       2919 non-null float64
+GarageQual       2919 non-null int8
+GarageCond       2919 non-null int8
+PavedDrive       2919 non-null object
+WoodDeckSF       2919 non-null int64
+OpenPorchSF      2919 non-null int64
+EnclosedPorch    2919 non-null int64
+3SsnPorch        2919 non-null int64
+ScreenPorch      2919 non-null int64
+PoolArea         2919 non-null int64
+PoolQC           2919 non-null int8
+Fence            2919 non-null category
+MiscFeature      2919 non-null category
+MiscVal          2919 non-null int64
+MoSold           2919 non-null int64
+YrSold           2919 non-null int64
+SaleType         2919 non-null category
+SaleCondition    2919 non-null category
+SalePrice        1460 non-null float64
+dtypes: category(11), float64(12), int64(25), int8(16), object(15)
+memory usage: 1.2+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{char\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{object}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{char\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ remaining columns with character values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 15 remaining columns with character values
+
+    \end{Verbatim}
+
+    \paragraph{5.3.1 Foundation}\label{foundation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Foundation} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Foundation}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Foundation}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Foundation}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} Foundation
+         BrkTil     311
+         CBlock    1235
+         PConc     1308
+         Slab        49
+         Stone       11
+         Wood         5
+         Name: Foundation, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.2 Heating and airco}\label{heating-and-airco}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Heating} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Heating}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Heating}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Heating}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} Heating
+         Floor       1
+         GasA     2874
+         GasW       27
+         Grav        9
+         OthW        2
+         Wall        6
+         Name: Heating, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HeatingQC} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HeatingQC}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{qualities}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HeatingQC}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HeatingQC}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} HeatingQC
+         1       3
+         2      92
+         3     857
+         4     474
+         5    1493
+         Name: HeatingQC, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{air} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{CentralAir} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{CentralAir}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{air}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{CentralAir}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{CentralAir}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} CentralAir
+         0     196
+         1    2723
+         Name: CentralAir, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.3 Roof}\label{roof}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofMatl} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofMatl}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofMatl}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofMatl}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} RoofMatl
+         ClyTile       1
+         CompShg    2876
+         Membran       1
+         Metal         1
+         Roll          1
+         Tar\&Grv      23
+         WdShake       9
+         WdShngl       7
+         Name: RoofMatl, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofStyle} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofStyle}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofStyle}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{RoofStyle}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} RoofStyle
+         Flat         20
+         Gable      2310
+         Gambrel      22
+         Hip         551
+         Mansard      11
+         Shed          5
+         Name: RoofStyle, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.4 Land}\label{land}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandContour} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandContour}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandContour}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandContour}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} LandContour
+         Bnk     117
+         HLS     120
+         Low      60
+         Lvl    2622
+         Name: LandContour, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{slp} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gtl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandSlope} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandSlope}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{slp}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandSlope}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{LandSlope}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} LandSlope
+         0      16
+         1     125
+         2    2778
+         Name: LandSlope, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.5 Dwelling}\label{dwelling}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BldgType} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BldgType}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BldgType}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BldgType}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} BldgType
+         1Fam      2425
+         2fmCon      62
+         Duplex     109
+         Twnhs       96
+         TwnhsE     227
+         Name: BldgType, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HouseStyle} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HouseStyle}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HouseStyle}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HouseStyle}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} HouseStyle
+         1.5Fin     314
+         1.5Unf      19
+         1Story    1471
+         2.5Fin       8
+         2.5Unf      24
+         2Story     872
+         SFoyer      83
+         SLvl       128
+         Name: HouseStyle, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.6 Neighborhood and
+Conditions}\label{neighborhood-and-conditions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Neighborhood} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Neighborhood}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Neighborhood}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Neighborhood}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} Neighborhood
+         Blmngtn     28
+         Blueste     10
+         BrDale      30
+         BrkSide    108
+         ClearCr     44
+         CollgCr    267
+         Crawfor    103
+         Edwards    194
+         Gilbert    165
+         IDOTRR      93
+         MeadowV     37
+         Mitchel    114
+         NAmes      443
+         NPkVill     23
+         NWAmes     131
+         NoRidge     71
+         NridgHt    166
+         OldTown    239
+         SWISU       48
+         Sawyer     151
+         SawyerW    125
+         Somerst    182
+         StoneBr     51
+         Timber      72
+         Veenker     24
+         Name: Neighborhood, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition1} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition1}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition1}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} Condition1
+         Artery      92
+         Feedr      164
+         Norm      2511
+         PosA        20
+         PosN        39
+         RRAe        28
+         RRAn        50
+         RRNe         6
+         RRNn         9
+         Name: Condition1, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition2} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition2}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Condition2}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} Condition2
+         Artery       5
+         Feedr       13
+         Norm      2889
+         PosA         4
+         PosN         4
+         RRAe         1
+         RRAn         1
+         RRNn         2
+         Name: Condition2, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.3.7 Pavement of Street \&
+Driveway}\label{pavement-of-street-driveway}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{street} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grvl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Street} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Street}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{street}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Street}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{Street}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} Street
+         0      12
+         1    2907
+         Name: Street, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{pvd} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PavedDrive} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PavedDrive}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{pvd}\PY{p}{)}\PY{o}{.}\PY{n}{cat}\PY{o}{.}\PY{n}{codes}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PavedDrive}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{PavedDrive}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jack/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: FutureWarning:
+
+specifying 'categories' or 'ordered' in .astype() is deprecated; pass a CategoricalDtype instead
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} PavedDrive
+         0     216
+         1      62
+         2    2641
+         Name: PavedDrive, dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{5.4 Changing some numeric variables into
+factors}\label{changing-some-numeric-variables-into-factors}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2919 entries, 0 to 2918
+Data columns (total 79 columns):
+MSSubClass       2919 non-null int64
+MSZoning         2919 non-null category
+LotFrontage      2919 non-null float64
+LotArea          2919 non-null int64
+Street           2919 non-null int8
+Alley            2919 non-null category
+LotShape         2919 non-null int8
+LandContour      2919 non-null category
+LotConfig        2919 non-null category
+LandSlope        2919 non-null int8
+Neighborhood     2919 non-null category
+Condition1       2919 non-null category
+Condition2       2919 non-null category
+BldgType         2919 non-null category
+HouseStyle       2919 non-null category
+OverallQual      2919 non-null int64
+OverallCond      2919 non-null int64
+YearBuilt        2919 non-null int64
+YearRemodAdd     2919 non-null int64
+RoofStyle        2919 non-null category
+RoofMatl         2919 non-null category
+Exterior1st      2919 non-null category
+Exterior2nd      2919 non-null category
+MasVnrType       2919 non-null int8
+MasVnrArea       2919 non-null float64
+ExterQual        2919 non-null int8
+ExterCond        2919 non-null int8
+Foundation       2919 non-null category
+BsmtQual         2919 non-null int8
+BsmtCond         2919 non-null int8
+BsmtExposure     2919 non-null int8
+BsmtFinType1     2919 non-null int8
+BsmtFinSF1       2919 non-null float64
+BsmtFinType2     2919 non-null int8
+BsmtFinSF2       2919 non-null float64
+BsmtUnfSF        2919 non-null float64
+TotalBsmtSF      2919 non-null float64
+Heating          2919 non-null category
+HeatingQC        2919 non-null int8
+CentralAir       2919 non-null int8
+Electrical       2919 non-null category
+1stFlrSF         2919 non-null int64
+2ndFlrSF         2919 non-null int64
+LowQualFinSF     2919 non-null int64
+GrLivArea        2919 non-null int64
+BsmtFullBath     2919 non-null float64
+BsmtHalfBath     2919 non-null float64
+FullBath         2919 non-null int64
+HalfBath         2919 non-null int64
+BedroomAbvGr     2919 non-null int64
+KitchenAbvGr     2919 non-null int64
+KitchenQual      2919 non-null int8
+TotRmsAbvGrd     2919 non-null int64
+Functional       2919 non-null int8
+Fireplaces       2919 non-null int64
+FireplaceQu      2919 non-null int8
+GarageType       2919 non-null category
+GarageYrBlt      2919 non-null float64
+GarageFinish     2919 non-null int8
+GarageCars       2919 non-null float64
+GarageArea       2919 non-null float64
+GarageQual       2919 non-null int8
+GarageCond       2919 non-null int8
+PavedDrive       2919 non-null int8
+WoodDeckSF       2919 non-null int64
+OpenPorchSF      2919 non-null int64
+EnclosedPorch    2919 non-null int64
+3SsnPorch        2919 non-null int64
+ScreenPorch      2919 non-null int64
+PoolArea         2919 non-null int64
+PoolQC           2919 non-null int8
+Fence            2919 non-null category
+MiscFeature      2919 non-null category
+MiscVal          2919 non-null int64
+MoSold           2919 non-null int64
+YrSold           2919 non-null int64
+SaleType         2919 non-null category
+SaleCondition    2919 non-null category
+SalePrice        1460 non-null float64
+dtypes: category(21), float64(12), int64(25), int8(21)
+memory usage: 970.4 KB
+
+    \end{Verbatim}
+
+    \paragraph{5.4.1 Year and Month Sold}\label{year-and-month-sold}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MoSold} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MoSold}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MoSold}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MoSold}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} MoSold
+         1     122
+         2     133
+         3     232
+         4     279
+         5     394
+         6     503
+         7     446
+         8     233
+         9     158
+         10    173
+         11    142
+         12    104
+         Name: MoSold, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{5.4.2 MSSubClass}\label{mssubclass}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSSubClass} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSSubClass}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSSubClass}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{MSSubClass}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} MSSubClass
+         20     1079
+         30      139
+         40        6
+         45       18
+         50      287
+         60      575
+         70      128
+         75       23
+         80      118
+         85       48
+         90      109
+         120     182
+         150       1
+         160     128
+         180      17
+         190      61
+         Name: MSSubClass, dtype: int64
+\end{Verbatim}
+            
+    \subsection{6 Visualization of important variables
+{[}20{]}}\label{visualization-of-important-variables-20}
+
+    \subsubsection{6.1 Correlations again}\label{correlations-again}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{char\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{char\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ category columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{num\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ numeric columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 23 category columns
+There are 56 numeric columns
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{all\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{n}{num\PYZus{}cols}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{cor\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cor\PYZus{}sorted} \PY{o}{=} \PY{n}{cor\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{cor\PYZus{}high\PYZus{}names} \PY{o}{=} \PY{n}{cor\PYZus{}sorted}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{cor\PYZus{}sorted} \PY{o}{\PYZgt{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{top\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{all\PYZus{}numeric\PYZus{}vars}\PY{p}{[}\PY{n}{cor\PYZus{}high\PYZus{}names}\PY{p}{]}
+         \PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars} \PY{o}{=} \PY{n}{top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Heatmap}\PY{p}{(}\PY{n}{z}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{x}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+                            \PY{n}{y}\PY{o}{=}\PY{n}{cor\PYZus{}top\PYZus{}numeric\PYZus{}vars}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{]}
+         \PY{n}{layout}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Correlations With SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{autorange}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reversed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{automargin}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{p}{)}
+         
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \subsubsection{6.2 Finding variable importance with a quick Random
+Forest}\label{finding-variable-importance-with-a-quick-random-forest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NeighRich}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{rich} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StoneBr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NridgHt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NoRidge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{poor} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MeadowV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IDOTRR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BrDale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MeadowV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IDOTRR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BrDale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StoneBr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NridgHt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NoRidge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{rich}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NeighRich}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NeighRich}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{poor}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NeighRich}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{char\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{char\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ category columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{num\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ numeric columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 22 category columns
+There are 57 numeric columns
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} in order to do this correctly, i need to one\PYZhy{}hot encode the categorical variables first }
+         \PY{c+c1}{\PYZsh{} also need to bin neighborhood}
+         \PY{n}{all\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{char\PYZus{}cols}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2919 entries, 0 to 2918
+Columns: 226 entries, LotFrontage to SaleCondition\_Partial
+dtypes: float64(12), int64(24), int8(21), uint8(169)
+memory usage: 1.3 MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor} \PY{k}{as} \PY{n}{rfr}
+         
+         \PY{n}{quick\PYZus{}rfr} \PY{o}{=} \PY{n}{rfr}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{quick\PYZus{}rfr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1459}\PY{p}{,} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1459}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=None,
+                    max\_features='auto', max\_leaf\_nodes=None,
+                    min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                    min\_samples\_leaf=1, min\_samples\_split=2,
+                    min\_weight\_fraction\_leaf=0.0, n\_estimators=100, n\_jobs=1,
+                    oob\_score=False, random\_state=None, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{x\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{importances}\PY{p}{,} \PY{n}{cols} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{quick\PYZus{}rfr}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{,}\PY{n}{x\PYZus{}cols}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}
+             \PY{n}{y}\PY{o}{=}\PY{n}{importances}\PY{p}{,}
+             \PY{n}{x}\PY{o}{=}\PY{n}{cols}
+         \PY{p}{)}\PY{p}{]}
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest Feature Importances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} i}\PY{l+s+s1}{ncrease MSE if variable is randomly permuted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+             \PY{p}{)}
+         \PY{p}{)}
+         
+         \PY{n}{plotly}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,}\PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \paragraph{6.2.1 Above Ground Living Area, and other surface related
+variables (in square
+feet)}\label{above-ground-living-area-and-other-surface-related-variables-in-square-feet}
+
+    \paragraph{6.2.2 The most important categorical variable;
+Neighborhood}\label{the-most-important-categorical-variable-neighborhood}
+
+    \paragraph{6.2.3 Overall Quality, and other Quality
+variables}\label{overall-quality-and-other-quality-variables}
+
+    \paragraph{6.2.4 The second most important categorical variable;
+MSSubClass}\label{the-second-most-important-categorical-variable-mssubclass}
+
+    \paragraph{6.2.5 Garage variables}\label{garage-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2592}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageYrBlt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2007}
+\end{Verbatim}
+
+
+    \paragraph{6.2.6 Basement variables}\label{basement-variables}
+
+    \subsection{7 Feature engineering {[}5{]}}\label{feature-engineering-5}
+
+    \subsubsection{7.1 Total number of
+Bathrooms}\label{total-number-of-bathrooms}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotBath}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{FullBath} \PY{o}{+} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{HalfBath}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{+} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtFullBath} \PY{o}{+} \PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{BsmtHalfBath}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{7.2 Adding `House Age', `Remodeled (Yes/No)', and IsNew
+variables}\label{adding-house-age-remodeled-yesno-and-isnew-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Remod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YearBuilt} \PY{o}{==} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YearRemodAdd}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold} \PY{o}{\PYZhy{}} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YearRemodAdd}
+         \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IsNew}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold} \PY{o}{==} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YearBuilt}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{IsNew}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{IsNew}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} IsNew
+         0    2803
+         1     116
+         Name: IsNew, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{YrSold}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} YrSold
+         2006    619
+         2007    692
+         2008    622
+         2009    647
+         2010    339
+         Name: YrSold, dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{7.3 Binning Neighborhood}\label{binning-neighborhood}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} doing this before one hot encoding above}
+\end{Verbatim}
+
+
+    \subsubsection{7.4 Total Square Feet}\label{total-square-feet}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalSqFeet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{GrLivArea} \PY{o}{+} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{TotalBsmtSF}
+\end{Verbatim}
+
+
+    \subsubsection{7.5 Consolidating Porch
+variables}\label{consolidating-porch-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalPorchSF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{OpenPorchSF} \PY{o}{+} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{EnclosedPorch} \PY{o}{+} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3SsnPorch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{ScreenPorch}
+\end{Verbatim}
+
+
+    \subsection{8 Preparing data for modeling
+{[}20{]}}\label{preparing-data-for-modeling-20}
+
+    \subsubsection{8.1 Dropping highly correlated
+variables}\label{dropping-highly-correlated-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{dropVars} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YearRemodAdd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageYrBlt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageArea}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GarageCond}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalBsmtSF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotRmsAbvGrd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BsmtFinSF1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{dropVars}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{8.2 Removing outliers}\label{removing-outliers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{423}\PY{p}{,}\PY{l+m+mi}{1298}\PY{p}{]}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{8.3 PreProcessing predictor
+variables}\label{preprocessing-predictor-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{char\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{char\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ category columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{num\PYZus{}cols} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num\PYZus{}cols}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ numeric columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{char\PYZus{}cols}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 1 category columns
+There are 224 numeric columns
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:} Index(['YrSold'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{char\PYZus{}cols}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:} Index(['YrSold'], dtype='object')
+\end{Verbatim}
+            
+    \paragraph{8.3.1 Skewness and normalizing of the numeric
+predictors}\label{skewness-and-normalizing-of-the-numeric-predictors}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} dont have time/really complicated to do this after having to do one hot encoding and other stuff pre random forest}
+        \PY{c+c1}{\PYZsh{}tbh either all feature engineering should come before the random forest part, or it just shouldnt be done.}
+        \PY{c+c1}{\PYZsh{} this out of order stuff is annoying because sklearn random forest cant handle categoricals}
+\end{Verbatim}
+
+
+    \paragraph{8.3.2 One hot encoding the categorical
+variables}\label{one-hot-encoding-the-categorical-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{} need to one\PYZus{}hot\PYZus{}encode for yrsold}
+          \PY{n}{all\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YrSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{8.3.3 Removing levels with few or no observations in train or
+test}\label{removing-levels-with-few-or-no-observations-in-train-or-test}
+
+    \subsubsection{8.4 Dealing with skewness of response
+variable}\label{dealing-with-skewness-of-response-variable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{8.5 Composing train and test
+sets}\label{composing-train-and-test-sets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{train} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          \PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{train}\PY{o}{.}\PY{n}{columns} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{test} \PY{o}{=} \PY{n}{all\PYZus{}df}\PY{p}{[}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+          \PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{test}\PY{o}{.}\PY{n}{columns} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{9 Modeling {[}20{]}}\label{modeling-20}
+
+    \subsubsection{9.1 Lasso regression model}\label{lasso-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LassoCV}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+          \PY{n}{reg} \PY{o}{=} \PY{n}{LassoCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{las\PYZus{}fit} \PY{o}{=} \PY{n}{reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{las\PYZus{}fit}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} 0.18095219224955078
+\end{Verbatim}
+            
+    \subsubsection{9.2 XGBoost model}\label{xgboost-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBRegressor}
+          
+          \PY{n}{my\PYZus{}model} \PY{o}{=} \PY{n}{XGBRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{min\PYZus{}child\PYZus{}weight}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,}\PY{n}{booster}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gbtree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{my\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{my\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{all\PYZus{}df}\PY{o}{.}\PY{n}{SalePrice}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} 0.1306952121691125
+\end{Verbatim}
+            
+    \subsubsection{9.3 Averaging predictions}\label{averaging-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{results} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{las\PYZus{}fit}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{my\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{index} \PY{o}{=} \PY{n}{test\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{results} \PY{o}{=} \PY{n}{results}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb}{list}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{results}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \texttt{\#\#\#\ END\ SOLUTION}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
